@@ -1,0 +1,70 @@
+-- ========================================
+-- RUBIO GARCÍA DENTAL - Migraciones Database
+-- ========================================
+
+USE GELITE;
+
+-- Migración: Agregar campo de sincronización si no existe
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+               WHERE TABLE_NAME = 'DCitas' AND COLUMN_NAME = 'SyncVersion')
+BEGIN
+    ALTER TABLE dbo.DCitas 
+    ADD SyncVersion INT DEFAULT 1,
+        LastSyncDate DATETIME NULL;
+    
+    PRINT '✅ Campos de sincronización agregados a DCitas';
+END
+
+-- Migración: Crear tabla de configuración de la aplicación
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AppConfig' AND xtype='U')
+BEGIN
+    CREATE TABLE dbo.AppConfig (
+        ConfigId INT IDENTITY(1,1) PRIMARY KEY,
+        ConfigKey NVARCHAR(100) NOT NULL UNIQUE,
+        ConfigValue NVARCHAR(MAX),
+        ConfigType NVARCHAR(50) DEFAULT 'string',
+        Description NVARCHAR(255),
+        UpdatedAt DATETIME DEFAULT GETDATE(),
+        UpdatedBy NVARCHAR(100)
+    );
+
+    -- Insertar configuraciones por defecto
+    INSERT INTO dbo.AppConfig (ConfigKey, ConfigValue, ConfigType, Description) VALUES
+    ('app.name', 'Rubio García Dental Management', 'string', 'Nombre de la aplicación'),
+    ('app.version', '1.0.0', 'string', 'Versión de la aplicación'),
+    ('sync.auto_interval', '300000', 'number', 'Intervalo de sincronización automática en ms'),
+    ('whatsapp.enabled', 'true', 'boolean', 'Habilitar integración WhatsApp'),
+    ('clinic.name', 'Rubio García Dental', 'string', 'Nombre de la clínica'),
+    ('clinic.phone', '', 'string', 'Teléfono de la clínica'),
+    ('clinic.email', '', 'string', 'Email de la clínica');
+    
+    PRINT '✅ Tabla AppConfig creada y configurada';
+END
+
+-- Migración: Crear tabla de usuarios del sistema
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SystemUsers' AND xtype='U')
+BEGIN
+    CREATE TABLE dbo.SystemUsers (
+        UserId INT IDENTITY(1,1) PRIMARY KEY,
+        Username NVARCHAR(50) NOT NULL UNIQUE,
+        PasswordHash NVARCHAR(255) NOT NULL,
+        FullName NVARCHAR(100) NOT NULL,
+        Email NVARCHAR(100),
+        UserRole NVARCHAR(50) DEFAULT 'user',
+        IsActive BIT DEFAULT 1,
+        LastLogin DATETIME NULL,
+        CreatedAt DATETIME DEFAULT GETDATE(),
+        UpdatedAt DATETIME DEFAULT GETDATE()
+    );
+
+    -- Insertar usuario administrador por defecto (password: admin123)
+    INSERT INTO dbo.SystemUsers (Username, PasswordHash, FullName, Email, UserRole) VALUES
+    ('admin', '$2b$10$ExampleHashForAdmin123', 'Administrador del Sistema', 'admin@rubiogarciadental.com', 'admin');
+    
+    PRINT '✅ Tabla SystemUsers creada';
+END
+
+PRINT '========================================';
+PRINT '🦷 Migraciones aplicadas correctamente';
+PRINT '📍 Rubio García Dental';
+PRINT '========================================';

@@ -1,0 +1,74 @@
+rubio-garcia-dental-management/
+├── 📁 backend/
+│   ├── 📁 config/
+│   │   ├── database.js
+│   │   └── environment.js
+│   ├── 📁 controllers/
+│   │   ├── appointmentsController.js
+│   │   ├── patientsController.js
+│   │   ├── whatsappController.js
+│   │   └── billingController.js
+│   ├── 📁 middleware/
+│   │   ├── auth.js
+│   │   ├── errorHandler.js
+│   │   └── validation.js
+│   ├── 📁 models/
+│   │   ├── Appointment.js
+│   │   ├── Patient.js
+│   │   └── User.js
+│   ├── 📁 routes/
+│   │   ├── appointments.js
+│   │   ├── patients.js
+│   │   ├── whatsapp.js
+│   │   └── index.js
+│   ├── 📁 services/
+│   │   ├── sqlSyncService.js
+│   │   ├── whatsappService.js
+│   │   ├── aiService.js
+│   │   └── billingService.js
+│   ├── 📁 utils/
+│   │   ├── helpers.js
+│   │   ├── constants.js
+│   │   └── logger.js
+│   ├── package.json
+│   ├── server.js
+│   └── .env.example
+├── 📁 frontend/
+│   ├── 📁 css/
+│   │   ├── style.css
+│   │   └── corporate.css
+│   ├── 📁 js/
+│   │   ├── app.js
+│   │   ├── whatsapp.js
+│   │   ├── sync.js
+│   │   └── ai.js
+│   ├── 📁 assets/
+│   │   ├── 📁 images/
+│   │   │   └── clinic-gallery/
+│   │   └── 📁 icons/
+│   ├── 📁 components/
+│   │   ├── header.html
+│   │   ├── sidebar.html
+│   │   └── modals.html
+│   ├── index.html
+│   ├── dashboard.html
+│   └── appointments.html
+├── 📁 database/
+│   ├── setup.sql
+│   ├── migrations.sql
+│   └── sample-data.sql
+├── 📁 docs/
+│   ├── INSTALLATION.md
+│   ├── API.md
+│   └── USER_GUIDE.md
+├── 📁 scripts/
+│   ├── deploy.sh
+│   ├── backup.sh
+│   └── setup.sh
+├── 📁 tests/
+│   ├── backend.test.js
+│   └── frontend.test.js
+├── .gitignore
+├── README.md
+├── package.json
+└── docker-compose.yml

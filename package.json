@@ -1,0 +1,25 @@
+{
+  "name": "rubio-garcia-dental-management",
+  "version": "1.0.0",
+  "description": "Sistema integral de gestión para Clínica Dental Rubio García",
+  "scripts": {
+    "setup": "cd backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm start",
+    "test": "cd backend && npm test"
+  },
+  "keywords": [
+    "dental",
+    "clinic",
+    "management",
+    "whatsapp",
+    "sql-server",
+    "healthcare"
+  ],
+  "author": "Rubio García Dental",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rubiogarcia-dental/management-system"
+  }
+}

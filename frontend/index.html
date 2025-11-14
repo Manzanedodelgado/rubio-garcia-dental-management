@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubio García Dental - Sistema de Gestión</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Estilos corporativos -->
+    <style>
+        :root {
+            --primary-blue: #072C5F;
+            --secondary-blue: #0A3A7A;
+            --accent-orange: #F97316;
+            --light-blue: #E8F2FF;
+        }
+        
+        .corporate-gradient {
+            background: linear-gradient(135deg, #072C5F 0%, #0A3A7A 100%);
+        }
+        
+        .logo-border {
+            border: 2px solid #F97316;
+            border-radius: 12px;
+        }
+        
+        .dental-shadow {
+            box-shadow: 0 4px 20px rgba(7, 44, 95, 0.15);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Login Screen -->
+    <div id="login-screen" class="corporate-gradient min-h-screen flex items-center justify-center p-4">
+        <div class="glass-effect rounded-2xl p-8 w-full max-w-md dental-shadow">
+            <div class="text-center mb-8">
+                <!-- Logo corporativo -->
+                <div class="w-24 h-24 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 p-2 logo-border">
+                    <img src="https://i.ibb.co/sd2Q9Lsn/B938-D892-C1-E0-4-E3-E-A9-F7-CA44-E05672-E1.png" 
+                         alt="Rubio García Dental" 
+                         class="w-full h-full object-contain rounded-xl">
+                </div>
+                <h1 class="text-2xl font-bold text-white mb-2">RUBIO GARCÍA DENTAL</h1>
+                <p class="text-white/80 text-sm">Excelencia en salud bucodental</p>
+            </div>
+            
+            <!-- Formulario de login -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="login-username" class="block text-white text-sm font-medium mb-2">
+                        Usuario *
+                    </label>
+                    <input type="text" id="login-username" name="username" required
+                           class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-colors"
+                           placeholder="Ingresa tu usuario">
+                </div>
+                
+                <div>
+                    <label for="login-password" class="block text-white text-sm font-medium mb-2">
+                        Contraseña *
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="login-password" name="password" required
+                               class="w-full px-4 py-3 pr-12 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white focus:border-white transition-colors"
+                               placeholder="Ingresa tu contraseña">
+                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-white/20 hover:bg-white/30 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 border border-orange-400 hover:border-orange-300 hover:shadow-lg">
+                    Iniciar Sesión
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-white/70 text-sm">
+                    ¿Problemas para acceder? 
+                    <button class="text-white underline hover:text-orange-200 transition-colors">
+                        Contactar con soporte
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (hidden initially) -->
+    <div id="main-app" class="hidden">
+        <!-- Header será cargado por JavaScript -->
+    </div>
+
+    <script>
+        // Configuración de Tailwind con colores corporativos
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#E8F2FF',
+                            100: '#D1E5FF',
+                            500: '#0A3A7A',
+                            600: '#072C5F',
+                            700: '#051F45',
+                            900: '#03152F'
+                        },
+                        orange: {
+                            400: '#FB923C',
+                            500: '#F97316',
+                            600: '#EA580C'
+                        }
+                    }
+                }
+            }
+        }
+
+        // Lógica de login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Credenciales hardcodeadas por ahora
+            if (username === 'admin' && password === 'admin') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                
+                // Cargar aplicación principal
+                loadMainApp();
+            } else {
+                alert('Credenciales incorrectas. Use: admin/admin');
+            }
+        });
+
+        // Toggle password visibility
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('login-password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '🔒';
+        });
+
+        function loadMainApp() {
+            // Aquí se cargará la aplicación principal
+            document.getElementById('main-app').innerHTML = `
+                <header class="corporate-gradient shadow-sm border-b border-orange-400">
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 corporate-gradient rounded-xl flex items-center justify-center p-1 logo-border">
+                                <img src="https://i.ibb.co/sd2Q9Lsn/B938-D892-C1-E0-4-E3-E-A9-F7-CA44-E05672-E1.png" 
+                                     alt="Logo" 
+                                     class="w-full h-full object-contain rounded-lg">
+                            </div>
+                            <div>
+                                <h1 class="text-xl font-semibold text-white">RUBIO GARCÍA DENTAL</h1>
+                                <p class="text-white/80 text-sm">Sistema Integral de Gestión</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-white">Dr. Rubio García</p>
+                                <p class="text-white/80 text-xs">Administrador</p>
+                            </div>
+                            <button class="p-2 text-white/80 hover:text-white transition-colors">
+                                🚪
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="p-8">
+                    <h2 class="text-2xl font-bold text-primary-900 mb-4">Bienvenido al Sistema</h2>
+                    <p class="text-primary-700">La aplicación se está cargando...</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
